@@ -346,6 +346,21 @@
                     $_SESSION["ShowRisultato"] = true;
                 }
             ?>
+            <?php
+            $file = fopen("File.txt","r");
+            while (!feof($file)) 
+            {
+                if($_SESSION["eMail"] == fgets($file))
+                {
+                    if(fgets($file) ==  $_SESSION["Password"])
+                    {
+                        echo bruhhhhhhhhhhhhh;
+                        break;
+                    }
+                }
+            }
+            fclose($file);
+            ?>
         </div>
     </body>
 </html>
