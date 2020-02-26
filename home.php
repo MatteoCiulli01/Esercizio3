@@ -332,7 +332,7 @@
                     <label>Nazionalita':     <?php echo $_SESSION["Nazionalità"]; ?> </label>
                 </div>
                 <div id="Patente">
-                    <label>Patente:     <?php echo $_SESSION["PatenteA"]; ?>   <?php echo $_SESSION["PatenteB"]; ?> </label>
+                    <label>Patente:     <?php echo $_SESSION["PatenteA"]; if($_SESSION["PatenteA"] == null && $_SESSION["PatenteB"] == null){echo "Nessuna patente posseduta";};?>   <?php echo $_SESSION["PatenteB"]; ?> </label>
                 </div>
                 <div id="eMail">
                     <label>eMail:     <?php echo $_SESSION["eMail"]; ?> </label>
