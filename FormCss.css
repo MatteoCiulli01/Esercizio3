@@ -1,0 +1,26 @@
+#allbox
+{
+width:400px;
+height:auto;
+margin :auto;
+}
+#titolo
+{
+font-size:20px;
+margin-bottom:10px;
+}
+#text
+{
+font-size:12px;
+}
+#errore
+{
+	width:380px;
+	height:50px;
+	margin :-10px auto 10px auto;
+	padding:15px;
+	background-color:#FF9494;
+	color:#800000;
+	font-size: 13px;
+	line-height:13px;
+}
