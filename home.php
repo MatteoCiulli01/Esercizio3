@@ -311,16 +311,25 @@
             </form>
         </div>
         <div id="Risultato" <?php if ($_SESSION["ShowRisultato"]==true){?>style="display:none"<?php } ?>>
-            <?php
-                echo $_SESSION["Cognome"];
-                echo $_SESSION["Nome"];
-                echo $_SESSION["Sesso"];
-                echo $_SESSION["Nazionalità"];
-                echo $_SESSION["Patente"];
-                echo $_SESSION["eMail"];
-                echo $_SESSION["Password"];
-            ?>
             <form method="post">
+                <div id="Cognome">
+                    <label>Cognome:     <?php echo $_SESSION["Cognome"]; ?> </label>
+                </div>
+                <div id="Nome">
+                    <label>Nome:     <?php echo $_SESSION["Nome"]; ?> </label>
+                </div>
+                <div id="Sesso">
+                    <label>Sesso:     <?php echo $_SESSION["Sesso"]; ?> </label>
+                </div>
+                <div id="Nazionalita'">
+                    <label>Nazionalità:     <?php echo $_SESSION["Nazionalità"]; ?> </label>
+                </div>
+                <div id="Patente">
+                    <label>Patente:     <?php echo $_SESSION["PatenteA"]; ?>   <?php echo $_SESSION["PatenteB"]; ?> </label>
+                </div>
+                <div id="eMail">
+                    <label>eMail:     <?php echo $_SESSION["eMail"]; ?> </label>
+                </div>
                 <button type="Submit" name="Correggi">Correggi</button>
             </form>
             <?php 
