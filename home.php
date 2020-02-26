@@ -332,18 +332,35 @@
                     <label>Nazionalita':     <?php echo $_SESSION["Nazionalità"]; ?> </label>
                 </div>
                 <div id="Patente">
-                    <label>Patente:     <?php echo $_SESSION["PatenteA"]; ?>   <?php echo $_SESSION["PatenteB"]; ?> </label>
+                    <label>Patente:     <?php echo $_SESSION["PatenteA"]; if($_SESSION["PatenteA"] == null && $_SESSION["PatenteB"] == null){echo "Nessuna patente posseduta";};?>   <?php echo $_SESSION["PatenteB"]; ?> </label>
                 </div>
                 <div id="eMail">
                     <label>eMail:     <?php echo $_SESSION["eMail"]; ?> </label>
                 </div>
                 <button type="Submit" name="Correggi">Correggi</button>
+                <button type="Submit" name="Registra">Registra</button>
             </form>
             <?php 
                 if(array_key_exists('Correggi', $_POST))
                 {
                     $_SESSION["ShowAllBox"] = false;
                     $_SESSION["ShowRisultato"] = true;
+                }
+                if(array_key_exists('Registra', $_POST))
+                {
+                    $myFile = "File.txt";
+                    $fh = fopen($myFile, "w");
+                    $Cognome = $_SESSION["Cognome"] + "\n";
+                    fwrite($fh, $Cognome);
+                    fwrite($fh, $_SESSION["Nome"]);
+                    fwrite($fh, "\n");
+                    fwrite($fh, $_SESSION["Sesso"] + "\n");
+                    fwrite($fh, $_SESSION["Nazionalità"] + "\n");
+                    fwrite($fh, $_SESSION["PatenteA"] + "\n");
+                    fwrite($fh, $_SESSION["PatenteB"] + "\n");
+                    fwrite($fh, $_SESSION["eMail"] + "\n");
+                    fwrite($fh, $_SESSION["Passeord"] + "\n");
+                    fclose($fh);
                 }
             ?>
             <?php
