@@ -8,8 +8,14 @@
     $_SESSION["Patente"];
     $_SESSION["eMail"];
     $_SESSION["Password"];
-    $_SESSION["ShowAllBox"] = false;
+    if($_SESSION["ShowRisultato"] == true)
+    {
+        $_SESSION["ShowAllBox"] = false;
+    }
+    if($_SESSION["ShowAllBox"] == false)
+    {
     $_SESSION["ShowRisultato"] = true;
+    }
 ?>                                      
 <html>
     <head>
@@ -17,29 +23,29 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     </head>
     <body>
+    <?php
+        if(array_key_exists('Conferma', $_POST))
+        {
+            $_SESSION["Cognome"] = $_POST["Surname"];
+            $_SESSION["Nome"] = $_POST["Name"];
+            $_SESSION["ShowAllBox"] = true;
+            $_SESSION["ShowRisultato"] = false;
+        }
+    ?>
         <div id="allbox" <?php if ($_SESSION["ShowAllBox"]==true){?>style="display:none"<?php } ?>>
             <form method="post" >
-                <div id="titolo">Modulo di iscrizione</div>
-
-                <div class="form-group">
+                <p>Modulo di iscrizione</p>
                     <label >Cognome</label>
                     <input type="Surname" class="form-control" name="Surname" placeholder="inserisci qui il tuo cognome" required>
-                </div>
-            
-                <div class="form-group">
-                    <label for="exampleInputName1">Nome</label>
+
+                    <label>Nome</label>
                     <input type="Name" class="form-control" name="Name" placeholder="inserisci qui il tuo nome"	required>
-                </div>
                 
-                <div class="form-group">
-                    <label for="exampleInputName1">Sesso</label><br>
-                        <input type="radio" name="gender" value="male" > Maschio
-                        <input type="radio" name="gender" value="female"> Femmina
-                        <input type="radio" name="gender" value="other"> Altro
-                </div>
-                
-                <div class="form-group">
-                    <label for="country" id="Country">Nazionalita</label>  
+                    <label>Sesso</label><br>
+                    <input type="radio" name="gender" value="male" > Maschio
+                    <input type="radio" name="gender" value="female"> Femmina
+                    <input type="radio" name="gender" value="other"> Altro
+                    <label id="Country">Nazionalita</label>  
                             <select id="country" name="country" class="form-control">
                             <option value="Afghanistan">Afghanistan</option>
                             <option value="Åland Islands">Aland Islands</option>
@@ -286,41 +292,43 @@
                             <option value="Zambia">Zambia</option>
                             <option value="Zimbabwe">Zimbabwe</option>
                         </select>
-                </div>
+
                 
-                <div class="form-group">
-                <label>Patente</label>  
+                    <label>Patente</label>  
                     <input type="checkbox" name="1" value="PatA">
                     <label for="vehicle1">cat. A</label>
                     <input type="checkbox" name="2" value="PatB">
                     <label for="vehicle2">cat. B</label>
-                </div>
-                
-                <div class="form-group">
+
                     <label >Indirizzo eMail</label>
                     <input class="form-control" id="eMail" placeholder="inserisci qui il tuo indirizzo eMail"	required>
-                </div>
-            
-                <div class="form-group">
+
                     <label >Password</label>
                     <input type="password" class="form-control" id="Password"	placeholder="inserisci qui la tua password"	required>
-                </div>
-                
-                <button type="submit" class="btn btn-primary" >Conferma</button>
-                <button type ="reset" class="btn">Annulla</button>
 
-                <?php
-                $_SESSION["Cognome"] = $_POST["Surname"];
-                $_SESSION["Nome"] = $_POST["Name"];
-                $_SESSION["ShowAllBox"] = true;
-                $_SESSION["ShowRisultato"] = false;
-                ?>
+                <button type="submit" class="btn btn-primary" name="Conferma" >Conferma</button>
+                <button type ="reset" class="btn" name="Annulla">Annulla</button>
             </form>
-
         </div>
         <div id="Risultato" <?php if ($_SESSION["ShowRisultato"]==true){?>style="display:none"<?php } ?>>
+            <?php
+                echo $_SESSION["Cognome"];
+                echo $_SESSION["Nome"];
+                echo $_SESSION["Sesso"];
+                echo $_SESSION["Nazionalità"];
+                echo $_SESSION["Patente"];
+                echo $_SESSION["eMail"];
+                echo $_SESSION["Password"];
+            ?>
+            <form method="post">
+                <button type="Submit" name="Correggi">Correggi</button>
+            </form>
             <?php 
-               echo $_SESSION["Cognome"];
+                if(array_key_exists('Correggi', $_POST))
+                {
+                    $_SESSION["ShowAllBox"] = false;
+                    $_SESSION["ShowRisultato"] = true;
+                }
             ?>
         </div>
     </body>
