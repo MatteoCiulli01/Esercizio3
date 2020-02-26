@@ -43,10 +43,10 @@
             <form method="post" >
                 <p>Modulo di iscrizione</p>
                     <label >Cognome</label>
-                    <input type="Surname" class="form-control" name="Surname" placeholder="inserisci qui il tuo cognome" required>
+                    <input value= "<?php echo $_SESSION["Cognome"] ?>" type="Surname" class="form-control" name="Surname" placeholder="inserisci qui il tuo cognome" required>
 
                     <label>Nome</label>
-                    <input type="Name" class="form-control" name="Name" placeholder="inserisci qui il tuo nome"	required>
+                    <input value= "<?php echo $_SESSION["Nome"] ?>" type="Name" class="form-control" name="Name" placeholder="inserisci qui il tuo nome"	required>
                 
                     <label>Sesso</label><br>
                     <input type="radio" name="gender" value="male" > Maschio
@@ -308,7 +308,7 @@
                     <label for="vehicle2">cat. B</label>
 
                     <label >Indirizzo eMail</label>
-                    <input name="eMail" class="form-control" id="eMail" placeholder="inserisci qui il tuo indirizzo eMail"	required>
+                    <input value= "<?php echo $_SESSION["eMail"] ?>" name="eMail" class="form-control" id="eMail" placeholder="inserisci qui il tuo indirizzo eMail"	required>
 
                     <label >Password</label>
                     <input name = "Password" type="password" class="form-control" id="Password"	placeholder="inserisci qui la tua password"	required>
@@ -338,12 +338,29 @@
                     <label>eMail:     <?php echo $_SESSION["eMail"]; ?> </label>
                 </div>
                 <button type="Submit" name="Correggi">Correggi</button>
+                <button type="Submit" name="Registra">Registra</button>
             </form>
             <?php 
                 if(array_key_exists('Correggi', $_POST))
                 {
                     $_SESSION["ShowAllBox"] = false;
                     $_SESSION["ShowRisultato"] = true;
+                }
+                if(array_key_exists('Registra', $_POST))
+                {
+                    $myFile = "File.txt";
+                    $fh = fopen($myFile, "w");
+                    $Cognome = $_SESSION["Cognome"] + "\n";
+                    fwrite($fh, $Cognome);
+                    fwrite($fh, $_SESSION["Nome"]);
+                    fwrite($fh, "\n");
+                    fwrite($fh, $_SESSION["Sesso"] + "\n");
+                    fwrite($fh, $_SESSION["Nazionalità"] + "\n");
+                    fwrite($fh, $_SESSION["PatenteA"] + "\n");
+                    fwrite($fh, $_SESSION["PatenteB"] + "\n");
+                    fwrite($fh, $_SESSION["eMail"] + "\n");
+                    fwrite($fh, $_SESSION["Passeord"] + "\n");
+                    fclose($fh);
                 }
             ?>
         </div>
