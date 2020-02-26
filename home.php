@@ -5,7 +5,8 @@
     $_SESSION["Nome"];
     $_SESSION["Sesso"];
     $_SESSION["Nazionalità"];
-    $_SESSION["Patente"];
+    $_SESSION["PatenteA"];
+    $_SESSION["PatenteB"];
     $_SESSION["eMail"];
     $_SESSION["Password"];
     if($_SESSION["ShowRisultato"] == true)
@@ -28,6 +29,12 @@
         {
             $_SESSION["Cognome"] = $_POST["Surname"];
             $_SESSION["Nome"] = $_POST["Name"];
+            $_SESSION["Sesso"] = $_POST["gender"];
+            $_SESSION["Nazionalità"]= $_POST["country"];
+            $_SESSION["PatenteA"] = $_POST["PatenteA"];
+            $_SESSION["PatenteB"] = $_POST["PatenteB"];
+            $_SESSION["eMail"] = $_POST["eMail"] ;
+            $_SESSION["Password"] = $_POST["Password"];
             $_SESSION["ShowAllBox"] = true;
             $_SESSION["ShowRisultato"] = false;
         }
@@ -45,7 +52,7 @@
                     <input type="radio" name="gender" value="male" > Maschio
                     <input type="radio" name="gender" value="female"> Femmina
                     <input type="radio" name="gender" value="other"> Altro
-                    <label id="Country">Nazionalita</label>  
+                    <label name= "country" id="Country">Nazionalita</label>  
                             <select id="country" name="country" class="form-control">
                             <option value="Afghanistan">Afghanistan</option>
                             <option value="Åland Islands">Aland Islands</option>
@@ -295,16 +302,16 @@
 
                 
                     <label>Patente</label>  
-                    <input type="checkbox" name="1" value="PatA">
+                    <input type="checkbox" name="PatenteA" value="PatA">
                     <label for="vehicle1">cat. A</label>
-                    <input type="checkbox" name="2" value="PatB">
+                    <input type="checkbox" name="PatenteB" value="PatB">
                     <label for="vehicle2">cat. B</label>
 
                     <label >Indirizzo eMail</label>
-                    <input class="form-control" id="eMail" placeholder="inserisci qui il tuo indirizzo eMail"	required>
+                    <input name="eMail" class="form-control" id="eMail" placeholder="inserisci qui il tuo indirizzo eMail"	required>
 
                     <label >Password</label>
-                    <input type="password" class="form-control" id="Password"	placeholder="inserisci qui la tua password"	required>
+                    <input name = "Password" type="password" class="form-control" id="Password"	placeholder="inserisci qui la tua password"	required>
 
                 <button type="submit" class="btn btn-primary" name="Conferma" >Conferma</button>
                 <button type ="reset" class="btn" name="Annulla">Annulla</button>
@@ -316,7 +323,8 @@
                 echo $_SESSION["Nome"];
                 echo $_SESSION["Sesso"];
                 echo $_SESSION["Nazionalità"];
-                echo $_SESSION["Patente"];
+                echo $_SESSION["PatenteA"];
+                echo $_SESSION["PatenteB"];
                 echo $_SESSION["eMail"];
                 echo $_SESSION["Password"];
             ?>
