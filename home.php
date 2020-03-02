@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <?php 
     session_start();
-    $_SESSION["Cognome"];
-    $_SESSION["Nome"];
-    $_SESSION["Sesso"];
-    $_SESSION["Nazionalità"];
-    $_SESSION["PatenteA"];
-    $_SESSION["PatenteB"];
-    $_SESSION["eMail"];
-    $_SESSION["Password"];
+    if (empty($_SESSION["ShowRisultato"])) {
+        $_SESSION["ShowRisultato"] = true;
+    }
+    if (empty($_SESSION["ShowAllBox"])) {
+        $_SESSION["ShowAllBox"] = false;
+    }
+
     if($_SESSION["ShowRisultato"] == true)
     {
         $_SESSION["ShowAllBox"] = false;
@@ -43,15 +42,18 @@
             <form method="post" >
                 <p>Modulo di iscrizione</p>
                     <label >Cognome</label>
-                    <input value= "<?php echo $_SESSION["Cognome"] ?>" type="Surname" class="form-control" name="Surname" placeholder="inserisci qui il tuo cognome" required>
-
+                    <input value= "<?php if(isset($_SESSION["Cognome"])!= false){ echo $_SESSION["Cognome"]; }?>" type="Surname" class="form-control" name="Surname" placeholder="inserisci qui il tuo cognome" required>
+                    <div>
                     <label>Nome</label>
-                    <input value= "<?php echo $_SESSION["Nome"] ?>" type="Name" class="form-control" name="Name" placeholder="inserisci qui il tuo nome"	required>
-                
+                    <input value= "<?php if(isset($_SESSION["Cognome"])!= false){echo $_SESSION["Nome"];} ?>" type="Name" class="form-control" name="Name" placeholder="inserisci qui il tuo nome"	required>
+                    </div>
+                    <div>
                     <label>Sesso</label><br>
                     <input type="radio" name="gender" value="male" > Maschio
                     <input type="radio" name="gender" value="female"> Femmina
                     <input type="radio" name="gender" value="other"> Altro
+                    </div>
+                    <div>
                     <label name= "country" id="Country">Nazionalita</label>  
                             <select id="country" name="country" class="form-control">
                             <option value="Afghanistan">Afghanistan</option>
@@ -299,16 +301,15 @@
                             <option value="Zambia">Zambia</option>
                             <option value="Zimbabwe">Zimbabwe</option>
                         </select>
-
-                
-                    <label>Patente</label>  
+                    </div>
+                 <label>Patente</label>  
                     <input type="checkbox" name="PatenteA" value="PatA">
                     <label for="vehicle1">cat. A</label>
                     <input type="checkbox" name="PatenteB" value="PatB">
                     <label for="vehicle2">cat. B</label>
 
                     <label >Indirizzo eMail</label>
-                    <input value= "<?php echo $_SESSION["eMail"] ?>" name="eMail" class="form-control" id="eMail" placeholder="inserisci qui il tuo indirizzo eMail"	required>
+                    <input value= "<?php if(isset($_SESSION["Cognome"])!= false){echo $_SESSION["eMail"];} ?>" name="eMail" class="form-control" id="eMail" placeholder="inserisci qui il tuo indirizzo eMail"	required>
 
                     <label >Password</label>
                     <input name = "Password" type="password" class="form-control" id="Password"	placeholder="inserisci qui la tua password"	required>
@@ -348,30 +349,32 @@
                 }
                 if(array_key_exists('Registra', $_POST))
                 {
-                    $myFile = "File.txt";
-                    $fh = fopen($myFile, "w");
-                    $Cognome = $_SESSION["Cognome"] + "\n";
-                    fwrite($fh, $Cognome);
-                    fwrite($fh, $_SESSION["Nome"]);
-                    fwrite($fh, "\n");
-                    fwrite($fh, $_SESSION["Sesso"] + "\n");
-                    fwrite($fh, $_SESSION["Nazionalità"] + "\n");
-                    fwrite($fh, $_SESSION["PatenteA"] + "\n");
-                    fwrite($fh, $_SESSION["PatenteB"] + "\n");
-                    fwrite($fh, $_SESSION["eMail"] + "\n");
-                    fwrite($fh, $_SESSION["Passeord"] + "\n");
-                    fclose($fh);
+                    $file1 = fopen("File.txt", "a");
+                    $Cognome = $_SESSION["Cognome"].PHP_EOL;
+                    $Nome = $_SESSION["Nome"].PHP_EOL;
+                    $Sesso = $_SESSION["Sesso"].PHP_EOL;
+                    $Nazionalita = $_SESSION["Nazionalità"].PHP_EOL;
+                    if(empty($_SESSION["PatenteA"])== false)$Patente = $_SESSION["PatenteA"].PHP_EOL;
+                    if(empty($_SESSION["PatenteB"])== false)$Patente = $_SESSION["PatenteB"].PHP_EOL;
+                    $Password = $_SESSION["Password"].PHP_EOL;
+                    fwrite($file1, $Cognome);
+                    fwrite($file1, $Nome);
+                    fwrite($file1, $Sesso);
+                    fwrite($file1, $Nazionalita);
+                    fwrite($file1, $Patente);
+                    fwrite($file1, $Password);
+                    fclose($file1);
                 }
             ?>
             <?php
             $file = fopen("File.txt","r");
             while (!feof($file)) 
             {
-                if($_SESSION["eMail"] == fgets($file))
+                if(strcmp(($_SESSION["eMail"].PHP_EOL),fgets($file)) == 0)
                 {
-                    if(fgets($file) ==  $_SESSION["Password"])
+                    if(strcmp(($_SESSION["Password"].PHP_EOL),fgets($file)) == 0)
                     {
-                        echo bruhhhhhhhhhhhhh;
+                        echo $_SESSION["Ok"] = "Login riuscito";
                         break;
                     }
                 }
