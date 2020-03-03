@@ -7,7 +7,6 @@
     if (empty($_SESSION["ShowAllBox"])) {
         $_SESSION["ShowAllBox"] = false;
     }
-
     if($_SESSION["ShowRisultato"] == true)
     {
         $_SESSION["ShowAllBox"] = false;
@@ -15,7 +14,7 @@
     if($_SESSION["ShowAllBox"] == false)
     {
     $_SESSION["ShowRisultato"] = true;
-    }
+    }   
 ?>                                      
 <html>
     <head>
@@ -33,7 +32,7 @@
             $_SESSION["PatenteA"] = $_POST["PatenteA"];
             $_SESSION["PatenteB"] = $_POST["PatenteB"];
             $_SESSION["eMail"] = $_POST["eMail"] ;
-            $_SESSION["Password"] = $_POST["Password"];
+            $_SESSION["Password"] = md5($_POST["Password"]);
             $_SESSION["ShowAllBox"] = true;
             $_SESSION["ShowRisultato"] = false;
         }
@@ -45,7 +44,7 @@
                     <input value= "<?php if(isset($_SESSION["Cognome"])!= false){ echo $_SESSION["Cognome"]; }?>" type="Surname" class="form-control" name="Surname" placeholder="inserisci qui il tuo cognome" required>
                     <div>
                     <label>Nome</label>
-                    <input value= "<?php if(isset($_SESSION["Cognome"])!= false){echo $_SESSION["Nome"];} ?>" type="Name" class="form-control" name="Name" placeholder="inserisci qui il tuo nome"	required>
+                    <input value= "<?php if(isset($_SESSION["Nome"])!= false){echo $_SESSION["Nome"];} ?>" type="Name" class="form-control" name="Name" placeholder="inserisci qui il tuo nome"	required>
                     </div>
                     <div>
                     <label>Sesso</label><br>
@@ -309,7 +308,7 @@
                     <label for="vehicle2">cat. B</label>
 
                     <label >Indirizzo eMail</label>
-                    <input value= "<?php if(isset($_SESSION["Cognome"])!= false){echo $_SESSION["eMail"];} ?>" name="eMail" class="form-control" id="eMail" placeholder="inserisci qui il tuo indirizzo eMail"	required>
+                    <input value= "<?php if(isset($_SESSION["eMail"])!= false){echo $_SESSION["eMail"];} ?>" name="eMail" class="form-control" id="eMail" placeholder="inserisci qui il tuo indirizzo eMail"	required>
 
                     <label >Password</label>
                     <input name = "Password" type="password" class="form-control" id="Password"	placeholder="inserisci qui la tua password"	required>
@@ -338,11 +337,11 @@
                 <div id="eMail">
                     <label>eMail:     <?php echo $_SESSION["eMail"]; ?> </label>
                 </div>
-                <button type="Submit" name="Correggi">Correggi</button>
                 <button type="Submit" name="Registra">Registra</button>
+                <button type="Submit" name="Correggi">Correggi</button>
             </form>
             <?php 
-                if(array_key_exists('Correggi', $_POST))
+                if(array_key_exists("Correggi",$_POST))
                 {
                     $_SESSION["ShowAllBox"] = false;
                     $_SESSION["ShowRisultato"] = true;
@@ -363,23 +362,14 @@
                     fwrite($file1, $Nazionalita);
                     fwrite($file1, $Patente);
                     fwrite($file1, $Password);
+                    echo dadasdsd;
                     fclose($file1);
+                    echo bruh1;
+                    header('Location: http://localhost:84/Esercizio3/EsitoReg.php');
+                    echo bruh2;
+                    exit();
+                    session_destroy();
                 }
-            ?>
-            <?php
-            $file = fopen("File.txt","r");
-            while (!feof($file)) 
-            {
-                if(strcmp(($_SESSION["eMail"].PHP_EOL),fgets($file)) == 0)
-                {
-                    if(strcmp(($_SESSION["Password"].PHP_EOL),fgets($file)) == 0)
-                    {
-                        echo $_SESSION["Ok"] = "Login riuscito";
-                        break;
-                    }
-                }
-            }
-            fclose($file);
             ?>
         </div>
     </body>
