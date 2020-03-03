@@ -346,30 +346,6 @@
                     $_SESSION["ShowAllBox"] = false;
                     $_SESSION["ShowRisultato"] = true;
                 }
-                if(array_key_exists('Registra', $_POST))
-                {
-                    $file1 = fopen("File.txt", "a");
-                    $Cognome = $_SESSION["Cognome"].PHP_EOL;
-                    $Nome = $_SESSION["Nome"].PHP_EOL;
-                    $Sesso = $_SESSION["Sesso"].PHP_EOL;
-                    $Nazionalita = $_SESSION["Nazionalità"].PHP_EOL;
-                    if(empty($_SESSION["PatenteA"])== false)$Patente = $_SESSION["PatenteA"].PHP_EOL;
-                    if(empty($_SESSION["PatenteB"])== false)$Patente = $_SESSION["PatenteB"].PHP_EOL;
-                    $Password = $_SESSION["Password"].PHP_EOL;
-                    fwrite($file1, $Cognome);
-                    fwrite($file1, $Nome);
-                    fwrite($file1, $Sesso);
-                    fwrite($file1, $Nazionalita);
-                    fwrite($file1, $Patente);
-                    fwrite($file1, $Password);
-                    echo dadasdsd;
-                    fclose($file1);
-                    echo bruh1;
-                    header('Location: http://localhost:84/Esercizio3/EsitoReg.php');
-                    echo bruh2;
-                    exit();
-                    session_destroy();
-                }
             ?>
         </div>
     </body>
